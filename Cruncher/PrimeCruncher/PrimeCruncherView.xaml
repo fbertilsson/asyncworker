@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="CruncherModule.PrimeCruncher.PrimeCruncherView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <DockPanel Background="White">
+        <TextBlock DockPanel.Dock="Top" Margin="10">Create prime number calculation tasks and enque them.</TextBlock>
+        <StackPanel DockPanel.Dock="Left" Margin="10" HorizontalAlignment="Right">
+            <WrapPanel Margin="10">
+                <Label Content="Enter ceiling for prime number search:"/>
+                <TextBox Text="{Binding Number, UpdateSourceTrigger=PropertyChanged}" Width="90"/>
+            </WrapPanel>
+            <Button Content="Enqueue" Command="{Binding EnqueueCommand}" Width="70" HorizontalAlignment="Right" Margin="10" IsDefault="True"/>
+        </StackPanel>
+        <Grid MinWidth="200" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="Queue:" />
+            <ScrollViewer Grid.Row="1" >
+                <ListBox ItemsSource="{Binding QueuedItemsView}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBlock Text="{Binding MaxValue, Mode=OneTime}" Margin="3" />
+                                <ProgressBar Value="{Binding PercentDone, Mode=OneWay}" Width="50" Minimum="0"
+                                             Maximum="100" />
+                                <CheckBox IsChecked="{Binding IsDone, Mode=OneWay}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</UserControl>
